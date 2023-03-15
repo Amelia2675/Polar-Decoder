@@ -7,6 +7,7 @@ Polar codes are error-correcting codes. It aims to transmit messages at the high
 ## Architecture
 ### Read data
 LLR memory contains 1~44 polar encoded packets, each with different N and K. Additionally, contents in LLR memory will be ready before the signal 'module_en' rises.
+
 <img width="477" alt="image" src="https://user-images.githubusercontent.com/109503040/225306976-eabff0e3-027d-4e92-87b5-a442bf71ae8f.png">
 
 1 packet involves 32 words. There are 3 specifications for N - 128, 256, and 512. 
@@ -30,11 +31,15 @@ At first, we read all the data in one sitting. Afterwards, we pruned the design 
 ### Zero Node Cancellation
 Predict the position of frozen bits when decoding. Then skip the redundant nodes to compute non-frozen bits.
 ### Compilation Method
+Using some demands in synthesis to shrink area and power.
 ```sh
 compile_ultra
 clock_gating
 ```
-Using some demands in synthesis to shrink area and power.
 ### APR
 1. Reduce the amount of stripes.
 2. Increase the amount of fanout.
+
+## Result
+The design passed both baseline and full patterns for RTL, gate-level, and post layout simulation. 
+We supplied 2 versions of design, one is the original version (unfolding method) and the other is optimized one (adopting the strategies mentioned above).
